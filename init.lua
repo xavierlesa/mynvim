@@ -4,11 +4,11 @@ http://github.com/xavierlesa/xnvim.git
 
 -- Colores por defecto (en caso que no cargar un theme)
 -- default, habamax, slate, lunaperche
--- vim.cmd.colorscheme("habamax")
-require("themes.xavier").setup()
+vim.cmd.colorscheme("retrobox")
+-- require("themes.xavier").setup()
+
 -- Usar NerdFonts (poner true si lo tengo instalado)
 vim.g.have_nerd_font = true
--- Cambio el background un poco más oscuro que el de `habamax`
 
 -- Mapea el leader como <space> " "
 vim.g.mapleader = " "
@@ -242,7 +242,7 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- Fuzzy Finder (files, lsp, etc)
+	{ -- Fuzzy Finder (files, lsp, etc)--[[
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
 		branch = "0.1.x",
@@ -347,9 +347,9 @@ require("lazy").setup({
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end, { desc = "[S]earch [N]eovim files" })
 		end,
-	},
+	},-- --]]
 
-	{ -- Neo-Tree.nvim
+	{ -- Neo-Tree.nvim--[[
 		-- use 'nvim-neo-tree/neo-tree.nvim'
 		"nvim-neo-tree/neo-tree.nvim",
 		-- branch = "v3.x",
@@ -381,11 +381,20 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "NeoTree" })
 			vim.keymap.set("n", "<c-n>", "<cmd>Neotree toggle<cr>", { desc = "NeoTree" })
 		end,
-	},
+	},-- --]]
 
 	{ -- Git : vim-fugitive
 		"tpope/vim-fugitive",
 	},
+
+  -- Markdown
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    -- after = { 'nvim-treesitter' },
+    config = function()
+      require('render-markdown').setup({})
+    end,
+  },
 
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
@@ -419,6 +428,7 @@ require("lazy").setup({
 			statusline.section_location = function()
 				return "%2l:%-2v"
 			end
+
 
 			-- ... and there is more!
 			--  Check out: https://github.com/echasnovski/mini.nvim
@@ -541,34 +551,34 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"nvimtools/none-ls.nvim",
-		dependencies = {
-			"nvimtools/none-ls-extras.nvim",
-		},
-		config = function()
-			local null_ls = require("null-ls")
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.stylua,
-					-- null_ls.builtins.diagnostics.eslint,
-					-- null_ls.builtins.completion.spell,
-
-					-- python
-					null_ls.builtins.formatting.black,
-					null_ls.builtins.formatting.isort,
-					null_ls.builtins.diagnostics.mypy.with({ command = { "python", "-m", "mypy" } }),
-					-- null_ls.builtins.diagnostics.flake8,
-					-- null_ls.builtins.diagnostics.pylint,
-
-					-- javascript
-					-- null_ls.builtins.formatting.eslint_d,
-					null_ls.builtins.formatting.prettier,
-
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"nvimtools/none-ls.nvim",
+	-- 	dependencies = {
+	-- 		"nvimtools/none-ls-extras.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		local null_ls = require("null-ls")
+	-- 		null_ls.setup({
+	-- 			sources = {
+	-- 				null_ls.builtins.formatting.stylua,
+	-- 				-- null_ls.builtins.diagnostics.eslint,
+	-- 				-- null_ls.builtins.completion.spell,
+	--
+	-- 				-- python
+	-- 				null_ls.builtins.formatting.black,
+	-- 				null_ls.builtins.formatting.isort,
+	-- 				null_ls.builtins.diagnostics.mypy.with({ command = { "python", "-m", "mypy" } }),
+	-- 				-- null_ls.builtins.diagnostics.flake8,
+	-- 				-- null_ls.builtins.diagnostics.pylint,
+	--
+	-- 				-- javascript
+	-- 				-- null_ls.builtins.formatting.eslint_d,
+	-- 				null_ls.builtins.formatting.prettier,
+	--
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	{
 		-- Main LSP Configuration
@@ -665,7 +675,7 @@ require("lazy").setup({
 
 			-- Change diagnostic symbols in the sign column (gutter)
 			if vim.g.have_nerd_font then
-				local signs = { ERROR = "•", WARN = "•", INFO = "•", HINT = "•" }
+				local signs = { ERROR = "•", WARN = "•", INFO = "i", HINT = "h" }
 				local diagnostic_signs = {}
 				for type, icon in pairs(signs) do
 					diagnostic_signs[vim.diagnostic.severity[type]] = icon
@@ -706,33 +716,31 @@ require("lazy").setup({
 				-- ts_ls = {},
 
 				-- LSP server
-				pylsp = {
-					root_dir = vim.fs.root(
-						0,
-						{ "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" }
-					),
-					settings = {
-						pylsp = {
-							skip_token_initialization = true,
-							-- plugins = {
-							-- 	-- formatter options
-							--  black = { enabled = true },
-							-- 	isort = { enabled = false },
-							-- 	autopep8 = { enabled = false },
-							-- 	yapf = { enabled = false },
-							-- 	-- linter options
-							-- 	pylint = { enabled = false },
-							-- 	pyflakes = { enabled = false },
-							-- 	pycodestyle = { enabled = false },
-							-- 	-- auto-completion options
-							-- 	jedi_completion = { fuzzy = true },
-							-- },
-						},
-					},
-					flags = {
-						debounce_text_changes = 200,
-					},
-				},
+				-- pylsp = {
+				-- 	root_dir = vim.fs.root(
+				-- 		0,
+				-- 		{ "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git", "Pipenv", "manage.py" }
+				-- 	),
+				-- 	settings = {
+				-- 		pylsp = {
+				-- 			plugins = {
+				-- 				-- formatter options
+				-- 				-- black = { enabled = true },
+				-- 				-- isort = { enabled = true },
+				-- 				-- autopep8 = { enabled = false },
+				-- 				-- yapf = { enabled = false },
+				--
+				-- 				-- -- linter options
+				-- 				-- pylint = { enabled = false },
+				-- 				-- pyflakes = { enabled = false },
+				-- 				-- pycodestyle = { enabled = false },
+				--
+				-- 				-- auto-completion options
+				-- 				jedi_completion = { fuzzy = true },
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
 
 				lua_ls = {
 					settings = {
@@ -780,12 +788,18 @@ require("lazy").setup({
 			-- You can add other tools here that you want Mason to install
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(ensure_installed, {
+
+			local ensure_installed_all = vim.list_extend({
 				"stylua", -- Used to format Lua code
+			}, ensure_installed)
+
+			require("mason-tool-installer").setup({
+				ensure_installed = ensure_installed_all,
 			})
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
+				ensure_installed = ensure_installed,
+				automatic_installation = true,
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
@@ -797,6 +811,16 @@ require("lazy").setup({
 					end,
 				},
 			})
+
+			-- otros
+
+			-- require("lspconfig").pyls_isort.setup({
+			-- 	root_dir = vim.fs.root(
+			-- 		0,
+			-- 		{ "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git", "Pipenv", "manage.py" }
+			-- 	),
+			-- })
+
 		end,
 	},
 })
