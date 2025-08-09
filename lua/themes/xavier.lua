@@ -32,7 +32,7 @@ function M.setup()
 end
 
 --[[ Register as a colorscheme
-vim.api.nvim_create_user_command('colorscheme_xavier', function()
+vim.pi.nvim_create_user_command('colorscheme_xavier', function()
     M.setup()
 end, {})
 --]]

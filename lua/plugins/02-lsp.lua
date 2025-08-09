@@ -149,47 +149,8 @@ return {
 				--
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
 				ts_ls = {},
-
 				-- volar = {},
-
-				html = {
-					settings = {
-						filetypes = { "html", "htmldjango" },
-					},
-				},
-
 				pyright = {},
-
-				lua_ls = {
-					settings = {
-						Lua = {
-							completion = {
-								callSnippet = "Replace",
-							},
-							runtime = {
-								-- Tell the language server which version of Lua you're using
-								-- (most likely LuaJIT in the case of Neovim)
-								version = "LuaJIT",
-							},
-							diagnostics = {
-								-- Get the language server to recognize the `vim` global
-								globals = {
-									"vim",
-									"require",
-								},
-							},
-							workspace = {
-								-- Make the server aware of Neovim runtime files
-								library = vim.api.nvim_get_runtime_file("", true),
-								checkThirdParty = false,
-							},
-							-- Do not send telemetry data containing a randomized but unique identifier
-							telemetry = {
-								enable = false,
-							},
-						},
-					},
-				},
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -215,14 +176,6 @@ return {
 				ensure_installed = ensure_installed_all,
 			})
 
-			ensure_installed = vim.list_extend({
-				djlsp = {
-					cmd = { "/Users/xavierlesa/.local/pipx/venvs/django-template-lsp/bin/djlsp" },
-					filetypes = { "html", "htmldjango" },
-					root_dir = require("lspconfig.util").root_pattern("manage.py", ".git"),
-				},
-			}, ensure_installed)
-
 			require("mason-lspconfig").setup({
 				ensure_installed = ensure_installed,
 				automatic_installation = true,
@@ -238,6 +191,14 @@ return {
 				},
 			})
 
+			-- Force djlsp
+			require("lspconfig").djlsp.setup({
+				cmd = { "/Users/xavierlesa/.local/pipx/venvs/django-template-lsp/bin/djlsp", "--enable-log" },
+				filetypes = { "html", "htmldjango" },
+				root_dir = require("lspconfig.util").root_pattern("manage.py", ".git"),
+				capabilities = vim.tbl_deep_extend("force", {}, capabilities, {}),
+			})
+
 			local null_ls = require("null-ls")
 			null_ls.setup({
 				debounce = 350,
@@ -248,7 +209,7 @@ return {
 					-- null_ls.builtins.completion.spell,
 
 					-- python
-					null_ls.builtins.diagnostics.mypy,
+					-- null_ls.builtins.diagnostics.mypy,
 					null_ls.builtins.formatting.black,
 					null_ls.builtins.formatting.isort,
 					-- null_ls.builtins.diagnostics.pylint,

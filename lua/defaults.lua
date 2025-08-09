@@ -1,8 +1,11 @@
 -- Colores por defecto (en caso que no cargar un theme)
 -- default, habamax, slate, lunaperche
-require("themes.xavier").setup()
+-- require("themes.xavier").setup()
 -- vim.cmd.colorscheme("retrobox")
 -- vim.cmd.colorscheme("lunaperche")
+
+vim.cmd.colorscheme("default")
+vim.cmd("highlight Statement guifg=#f9e2af")
 
 -- Columna a los 100
 vim.opt.colorcolumn = "100"
@@ -73,4 +76,6 @@ vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
+
+-- round
 
