@@ -26,9 +26,6 @@ return {
 					},
 				},
 			})
-
-			vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "NeoTree" })
-			vim.keymap.set("n", "<c-n>", "<cmd>Neotree toggle<cr>", { desc = "NeoTree" })
 		end,
 	},
 }
