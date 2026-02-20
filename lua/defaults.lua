@@ -4,6 +4,7 @@
 -- vim.cmd.colorscheme("retrobox")
 -- vim.cmd.colorscheme("lunaperche")
 
+-- fallbakc, el otro color esta en lazy post install
 vim.cmd.colorscheme("default")
 vim.cmd("highlight Statement guifg=#f9e2af")
 

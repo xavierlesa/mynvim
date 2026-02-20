@@ -27,3 +27,6 @@ require("lazy").setup({
   -- automatically check for plugin updates
   -- checker = { enabled = true },
 })
+
+-- post install / lazy init
+vim.cmd.colorscheme("miniautumn")
