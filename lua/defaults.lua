@@ -4,12 +4,16 @@
 -- vim.cmd.colorscheme("retrobox")
 -- vim.cmd.colorscheme("lunaperche")
 
--- fallbakc, el otro color esta en lazy post install
+-- fallback, el otro color esta en lazy post install
 vim.cmd.colorscheme("lunaperche")
-vim.cmd("highlight Statement guifg=#f9e2af")
+-- vim.cmd("highlight Statement guifg=#f9e2af")
+vim.api.nvim_set_hl(0, "Statement", { fg = "#f9e2af" })
 vim.api.nvim_set_hl(0, "Normal", { bg = "#202020" })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "#303030" })  -- ventanas no activas
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#363636" }) -- popups/floats
+vim.api.nvim_set_hl(0, "PmenuMatch",    { fg = "#f9e2af", bold = true })
+vim.api.nvim_set_hl(0, "PmenuMatchSel", { fg = "#f9e2af", bold = true })
+vim.api.nvim_set_hl(0, "IncSearch", { bg = "#f9e2af", fg = "#000000" })
 
 -- Columna a los 100
 vim.opt.colorcolumn = "100"
