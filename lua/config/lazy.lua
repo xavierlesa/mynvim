@@ -29,4 +29,4 @@ require("lazy").setup({
 })
 
 -- post install / lazy init
-vim.cmd.colorscheme("miniautumn")
+-- vim.cmd.colorscheme("miniautumn")

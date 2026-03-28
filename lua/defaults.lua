@@ -5,8 +5,11 @@
 -- vim.cmd.colorscheme("lunaperche")
 
 -- fallbakc, el otro color esta en lazy post install
-vim.cmd.colorscheme("default")
+vim.cmd.colorscheme("lunaperche")
 vim.cmd("highlight Statement guifg=#f9e2af")
+vim.api.nvim_set_hl(0, "Normal", { bg = "#202020" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "#303030" })  -- ventanas no activas
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#363636" }) -- popups/floats
 
 -- Columna a los 100
 vim.opt.colorcolumn = "100"
@@ -77,6 +80,3 @@ vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
-
--- round
-
